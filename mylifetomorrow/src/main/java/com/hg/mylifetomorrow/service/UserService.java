@@ -44,7 +44,7 @@ public class UserService {
 				Profile profile = new Profile();
 				profile.setDepFName((String)row.get("PRO_FNAME"));
 				profile.setDepLName((String)row.get("PRO_LNAME"));
-				profile.setDepId((int)row.get("PRO_ID"));
+				profile.setDepId((Integer)row.get("PRO_ID"));
 				profile.setRelationShipCode((String)row.get("PRO_SUB_REL"));
 				profiles.add(profile);
 			}
@@ -114,7 +114,7 @@ public class UserService {
 		for (Map<String, Object> row : rows) {
 			Profile profile = new Profile();
 			profile.setDepFName((String)row.get("PRO_FNAME"));
-			profile.setDepId((int)row.get("PRO_ID"));
+			profile.setDepId((Integer)row.get("PRO_ID"));
 			profile.setRelationShipCode((String)row.get("PRO_SUB_REL"));
 			profiles.add(profile);
 		}
@@ -247,7 +247,6 @@ public class UserService {
 			user = (User)jdbcTemplate.queryForObject(
 				sql, new Object[] { userName }, new RowMapper<User>(){
 
-					@Override
 					public User mapRow(ResultSet rs, int arg1) throws SQLException {	
 						final User user=new User();
 						user.setPassword(rs.getString("password"));
@@ -277,8 +276,8 @@ public class UserService {
 		
 		for (Map<String, Object> row : rows) {
 			final Question question=new Question();
-			question.setQuestionId((int)row.get("QUES_ID"));
-			question.setProfileId((int)row.get("PRO_ID"));
+			question.setQuestionId((Integer)row.get("QUES_ID"));
+			question.setProfileId((Integer)row.get("PRO_ID"));
 			question.setQuestion((String)row.get("QUES_DESC"));
 			question.setDatePosted(MLTUtil.getDateInDisplayFormat((String)row.get("CREATE_TS")));
 			question.setPostedBy((String)row.get("QUES_PSTD_BY"));
@@ -336,7 +335,6 @@ public class UserService {
 			final Question question = (Question)jdbcTemplate.queryForObject(
 				sql, new Object[] { questionId }, new RowMapper<Question>(){
 
-					@Override
 					public Question mapRow(ResultSet rs, int arg1) throws SQLException {
 						final Question question=new Question();
 						question.setQuestionId(rs.getInt("QUES_ID"));
@@ -372,7 +370,7 @@ public class UserService {
 		for (Map<String, Object> row : rows) {
 			final Question question=new Question();
 			question.setProfileId(profileId);
-			question.setQuestionId((int)row.get("QUES_ID"));
+			question.setQuestionId((Integer)row.get("QUES_ID"));
 			question.setQuestion((String)row.get("QUES_DESC"));
 			question.setDatePosted((String)row.get("CREATE_TS"));
 			final String replied=(String)row.get("RPLYD");
@@ -393,7 +391,7 @@ public class UserService {
 		final Question question = (Question)jdbcTemplate.queryForObject(
 				sql, new Object[] { profileId,timeStamp }, new RowMapper<Question>(){
 
-					@Override
+
 					public Question mapRow(ResultSet rs, int arg1) throws SQLException {
 						final Question question=new Question();
 						question.setQuestionId(rs.getInt("QUES_ID"));
@@ -420,7 +418,7 @@ public class UserService {
 		final List<Profile> profiles=new ArrayList<Profile>();
 		for (Map<String, Object> row : rows) {
 			final Profile profile=new Profile();
-			profile.setDepId((int)row.get("PRO_ID"));
+			profile.setDepId((Integer)row.get("PRO_ID"));
 			profile.setDepLName((String)row.get("PRO_LNAME"));
 			profile.setDepFName((String)row.get("PRO_FNAME"));
 			profile.setUserName((String)row.get("username"));
@@ -485,7 +483,7 @@ public class UserService {
 		 
 		Profile profile=jdbcTemplate.queryForObject(sql,new Object[] { ts },new RowMapper<Profile>(){
 
-			@Override
+
 			public Profile mapRow(ResultSet rs, int arg1) throws SQLException {
 				final Profile profile=new Profile();
 				profile.setDepId(rs.getInt("PRO_ID"));
