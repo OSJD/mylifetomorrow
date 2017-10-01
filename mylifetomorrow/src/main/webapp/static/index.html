@@ -1,0 +1,87 @@
+<html ng-app="app">
+
+
+<head>
+
+    <title>My Life Tomorrow</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="description" content="Haasini Groups - My Life Tomorrow">
+    <meta name="author" content="muralee.kishna@gmail.com">
+
+	<meta property="og:url"           content="http://www.mylifetomorrow.com" />
+	<meta property="og:type"          content="website" />
+	<meta property="og:title"         content="My Life Tomorrow" />
+	<meta property="og:description"   content="We will travel into future and find what suit best to lead happy life.horoscope,astrology and life events prediction." />
+	<meta property="og:image"         content="http://www.mylifetomorrow.com/static/img/hg-logo.jpg" />
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/static/css/angular-bootstrap.css" rel="stylesheet">
+    
+    <!-- Custom Fonts -->
+    <link href="/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- Custom CSS -->
+    <link href="/static/css/landing-page.css" rel="stylesheet">
+   
+    <style type="text/css">
+    	.loader {
+			position: fixed;
+			left: 0px;
+			top: 0px;
+			width: 100%;
+			height: 100%;
+			z-index: 9999;
+			background: url('/static/img/loader.gif') 50% 50% no-repeat rgb(249,249,249);
+		}
+		
+		[ng\:cloak], [ng-cloak], .ng-cloak {
+			display: none !important;
+		}
+		
+		div.navbar-collapse.collapse {
+	        display: block;
+	        overflow: hidden;
+	        max-height: 0px;
+	        -webkit-transition: max-height .3s ease;
+	        -moz-transition: max-height .3s ease;
+	        -o-transition: max-height .3s ease;
+	        transition: max-height .3s ease;
+    	}
+    	div.navbar-collapse.collapse.in {
+        	max-height: 2000px;
+    	}
+	</style> 
+</head>
+<body ng-cloak class="ng-cloak">
+
+	
+	<div ng-view style="height:75%;">
+		<div class="loader"></div>
+	</div>
+
+
+    <script src="/static/js/angular.js"></script>
+    <script src="/static/js/angular-route.js"></script>
+    <script src="/static/js/angular-easyfb.min.js"></script>
+    <script src="/static/js/angular-cookies.js"></script>
+    <script src="/static/js/angular-animate.js"></script>
+    <script src="/static/js/ui-bootstrap-tpls-1.3.3.js"></script>
+    <script src="/static/app.js"></script>
+    <script src="/static/app-services/authentication.service.js"></script>
+    <script src="/static/app-services/flash.service.js"></script>
+    <script src="/static/app-services/user.service.js"></script>
+    <script src="/static/home/home.controller.js"></script>
+    <script src="/static/login/login.controller.js"></script>
+    <script src="/static/register/register.controller.js"></script>
+    <script src="/static/menu/menu.controller.js"></script>
+    <script src="/static/user/user.controller.js"></script>
+    <script src="/static/user/user.action.controller.js"></script>
+    <script src="/static/admin/admin.controller.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,211 @@
+<script type="text/ng-template" id="verifyProfileModalContent.html">
+	<form name="form" ng-submit="vm.save()">
+        <div class="modal-header">
+            <h4 class="modal-title" style="width:450px;">
+					Profile Analysis({{vm.profile.userName}})
+			</h4>
+        </div>
+        <div class="modal-body">
+  				<div style="margin-left:10px;margin-right:10px;">
+					<div class="row rowalt">
+  						<div class="col-xs-6 col-sm-3"><label>First Name :</label></div>
+  						<div class="col-xs-6 col-sm-3">{{vm.profile.depFName}}</div>
+  						<div class="col-xs-6 col-sm-3"><label>Last Name :</label></div>
+  						<div class="col-xs-6 col-sm-3">{{vm.profile.depLName}}</div>
+					</div>
+					<div class="row rowalt">
+  						<div class="col-xs-6 col-sm-3"><label>Gender :</label></div>
+  						<div class="col-xs-6 col-sm-3">{{vm.profile.depSex}}</div>
+  						<div class="col-xs-6 col-sm-3"><label>Relationship:</div>
+  						<div class="col-xs-6 col-sm-3">{{vm.profile.relationShipCode}}</div>
+					</div>
+					<div class="row rowalt">
+  						<div class="col-xs-6 col-sm-3"><label>Date :(YYYY-MM-DD)</label></div>
+  						<div class="col-xs-6 col-sm-3">{{vm.profile.depDOB}}</div>
+  						<div class="col-xs-6 col-sm-3"><label>Time :(24 hours)</label></div>
+  						<div class="col-xs-6 col-sm-3">{{vm.profile.depTime}}</div>
+					</div>
+					<div class="row rowalt">
+  						<div class="col-xs-6 col-sm-3"><label>Place :</label></label></div>
+  						<div class="col-xs-6 col-sm-8">{{vm.profile.depPlaceOfBirth}}</div>
+					</div>
+					<div class="row rowalt">
+  						<div class="col-xs-6 col-sm-3"><label>Longitude :</label></div>
+  						<div class="col-xs-6 col-sm-3">{{vm.profile.depPlaceLongitudeNE}}<br>{{vm.profile.depPlaceLongitudeSW}}</div>
+  						<div class="col-xs-6 col-sm-3"><label>Latitude :</label></div>
+  						<div class="col-xs-6 col-sm-3">{{vm.profile.depPlaceLatitudeNE}}<br>{{vm.profile.depPlaceLatitudeSW}}</div>
+					</div>
+					<div class="row rowalt form-group" style="margin-top:10px;margin-bottom:10px;">
+  						<div class="col-xs-6 col-sm-3"><label>Analysis :</label></div>
+  						<div class="col-xs-6 col-sm-8"><textarea name="analysis" id="analysis" ng-model="vm.profile.analysis" class="form-control" rows="5" required></textarea></div>
+						
+					</div>
+					<div class="row rowalt" style="margin-top:10px;margin-bottom:10px;">
+  						<div class="col-xs-6 col-md-8" style="margin-bottom:10px;"><label>Birth Chart :</label><input id="myFile" name="myFile" type="file" file-model="myFile" /></div>
+  						<div class="col-xs-6 col-md-2">
+								<button class="btn btn-primary btn-xs" ng-click="vm.uploadFile()" ng-disabled="vm.dataLoading" style="margin-top:20px;margin-left:55px;"><span class="glyphicon glyphicon-camera"></span>&nbsp;Upload</button>
+								<img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+						</div>
+					</div>
+					<div class="row rowalt">
+						<div ng-if="vm.profile.chartImgData">
+							<img src="data:image/jpeg;base64,{{vm.profile.chartImgData}}" class="img-responsive" style="padding-top: 5px;" /> 
+						</div>
+					</div>
+					<div class="row rowalt">
+    					<label for="verificationCheck" class="label label-danger" style="color:yellow;">Profile verification, analysis and investigation completed?</label><div ng-if="vm.profile.verified">
+						<span style="color:red;">(Yes - verification completed)</span></div>
+    					<input id="verificationCheck" type="checkbox" ng-model="vm.profile.verified" />
+					</div>
+				</div>
+        </div>
+		<div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+        <div class="modal-footer">
+			<img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></span>
+            &nbsp;&nbsp;<button class="btn btn-primary" type="submit" ng-disabled="vm.dataLoading">Save</button>
+            <button class="btn btn-warning" type="button" ng-click="$close()">Close</button>
+        </div>
+	</form>
+</script>
+
+<script type="text/ng-template" id="newQuestionModalContent.html">
+				<form name="qForm" ng-submit="vm.addQuestion(vm.profile.questionId)">
+        			<div class="modal-header">
+            			<span class="glyphicon glyphicon-comment"></span>&nbsp;Chat with Guru!
+						<small class="pull-right text-muted">
+                    		<a href ng-click="$close()"><span class="glyphicon glyphicon-remove-circle"></span>&nbspClose</a>
+						</small>
+        			</div>
+        			<div class="modal-body" style="height:400px;overflow: auto;">
+  						<div class="form-group">
+							<div class="row" style="padding-bottom: 10px;padding-top: 10px;" ng-repeat="chat in chatHistory track by $index">
+  								<div class="col-xs-6 col-md-1" style="width:70px;">
+									<span class="chat-img pull-left">
+                           				<img src="http://placehold.it/50/{{chat.color}}/fff&amp;text={{chat.shortName}}"  class="img-circle">
+                        			</span>
+								</div>
+  								<div class="col-xs-12 col-md-10" style="border-bottom: 1px gray dotted;" ng-class="$index==0 ? 'messagebckgrnd' : ''">
+                           			<div class="chat-body clearfix">
+                               			<div class="header">
+                	               			<strong class="primary-font">{{chat.postedBy}}</strong> 
+											<small class="pull-right text-muted">
+                    	           				<span class="glyphicon glyphicon-time"></span>{{chat.datePosted }}
+											</small>
+                               			</div>
+                               			<p style="word-wrap: break-word;">
+											{{chat.question}}
+                               			</p>
+                           			</div>
+								</div>
+							</div>
+							<div ng-show="chatHistory.length==0" class="row" style="padding-bottom: 10px;padding-top: 10px;">
+								<div class="alert alert-info" role="alert" style="margin-left:10px;margin-right:10px;">
+			  						<span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span>
+			  						Please go to <mark>"Life Solutions"</mark> tab to view all your previous posts , questions and answers!
+								</div>
+							</div>
+						</div>
+        			</div>
+        			<div class="modal-footer">
+							<label style="margin-right:10px;">Do you want to end conversation?</label><input id="closeConversation" type="checkbox" ng-model="vm.question.replied" />({{vm.question.replied}})
+							<p class="input-group">
+								<textarea id="message" name="message" ng-model="vm.question.quesDes" class="form-control" rows="1" placeholder="Type your message here..." required></textarea>
+                        		<span class="input-group-btn">
+                            		<button class="btn btn-warning btn-sm" ng-disabled="myForm.$invalid" type="submit" id="btn-chat">Send</button>
+                        		</span>
+							</p>
+							<span class="error" ng-show="qForm.message.$error.required">Please enter your question to begin chat!</span>
+        			</div>
+				</form>
+ </script>
+
+
+
+    <uib-tabset active="activeForm">
+      <uib-tab index="0" heading="Verify">
+      	<div class="list-group" style="margin-top: 15px;width: 300px;margin-left: 20px;">
+	      	<div class="list-group-item active">
+	      	Profiles to Verify &nbsp;&nbsp;<span><img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" /></span>
+	      	</div>
+			<div ng-repeat="profile in profiles track by $index" ng-disabled="vm.dataLoading">
+	  			 <a href class="list-group-item" ng-click="vm.openProfile(profile)"><span class="glyphicon glyphicon-user"></span>{{profile.depFName}}</a>
+		    </div>
+		    <div class="list-group-item" ng-show="!profiles.length">No profiles available for analysis!</div>
+	    </div>
+      </uib-tab>
+      <uib-tab index="1" heading="Chat Room" select="vm.getAllPendQuestions()">
+			<div class="container" style="margin-top: 15px;">
+			<div class="row" style="margin-bottom: 20px;">
+				<form name="pForm" ng-submit="vm.searchProfile()">
+   					<p class="input-group">
+						<input type="text" class="form-control" id="searchCriteria" name="searchCriteria" ng-model="vm.searchCriteria" placeholder="Search for profile..." required>
+                     	<span class="input-group-btn">
+                        	<button class="btn btn-success btn-sm" ng-disabled="pForm.$invalid" type="submit"><span class="glyphicon glyphicon-search"></span>&nbsp;Go!</button>
+                     	</span>
+					</p>
+					<span class="error" ng-show="pForm.searchCriteria.$error.required">Please search profile by P'ID (or) First name (or) Last Name (or) email id!</span>
+	     		</form>
+	     		<div>
+		     		<table class="table table-striped" style="borderborder-top: 1px gray dotted;margin-top: 5px;" ng-show="vm.searchResults.length>0">
+					  <thead>
+					    <tr>
+					      <th>#</th>
+					      <th>First Name</th>
+					      <th>Last Name</th>
+					      <th>Username</th>
+					      <th colspan="2">Actions</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr ng-repeat="profile in vm.searchResults track by $index">
+					      <th scope="row">{{$index+1}}</th>
+					      <td>{{profile.depFName}}</td>
+					      <td>{{profile.depLName}}</td>
+					      <td>{{profile.userName}}</td>
+					      <td><a href class="btn btn-default btn-sm" ng-click="vm.openProfile(profile)"><i class="fa fa-user fa-lg"></i> view profile</a></td>
+					      <td><a href class="btn btn-default btn-sm" ng-click="vm.newQuestionModal(profile)"><i class="fa fa-wechat fa-lg"></i> chat</a></td>
+					    </tr>
+					  </tbody>
+					</table>
+				</div>
+			</div>
+			<div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message" style="margin-top:10px;margin-left:10px;margin-right:10px;"></div>
+			<div style="margin-bottom: 10px;border-bottom: 1px gray dotted;"><span style="color: #0000b7;">Questions waiting for Guru's response!</span></div>
+			<div class="row">
+			    <div class="col-md-8">
+			        <section class="comment-list">
+			          <!-- Comment box-->
+			          <div ng-repeat="question in questions">
+				          <article class="row">
+				            <div class="col-md-2 col-sm-2 hidden-xs">
+				              <figure class="thumbnail">
+				                <img class="img-responsive" src="/static/img/profile.jpg" />
+				                <figcaption class="text-center" style="word-wrap: break-word;"><a href ng-click="vm.viewProfile(question.profileId)">P'ID:{{question.profileId}}</a></figcaption>
+				              </figure>
+				            </div>
+				            <div class="col-md-10 col-sm-10">
+				              <div class="panel panel-default arrow left">
+				                <div class="panel-body">
+				                  <header class="text-left">
+				                    <div class="comment-user"><i class="fa fa-user"></i> {{question.postedBy}}</div>
+				                    <time class="comment-date"><i class="fa fa-clock-o"></i> {{question.datePosted}}</time>
+				                    <p class="text-right" style="width:10px;float:right;"><a href ng-click="vm.deleteQuestion(question.questionId)"><span class="glyphicon glyphicon-trash"></span></a></p>
+				                  </header>
+				                  <div class="comment-post" >
+				                    <p style="word-wrap: break-word;"> 
+				                      {{question.question}}
+				                    </p>
+				                  </div>
+				                  <p class="text-right"><a href ng-click="vm.viewcomments(question)" class="btn btn-default btn-sm"><i class="fa fa-wechat fa-lg"></i> chat</a></p>
+				                </div>
+				              </div>
+				            </div>
+				          </article>
+					  </div>
+			        </section>
+			    </div>
+			  </div>
+			</div>
+
+      </uib-tab>
+    </uib-tabset>

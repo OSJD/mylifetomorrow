@@ -1,0 +1,448 @@
+	<nav class="navbar navbar-default" role="navigation">
+	  <!-- Brand and toggle get grouped for better mobile display -->
+	  <div class="navbar-header topnav">
+	
+	    <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+	      <span class="sr-only">Toggle navigation</span>
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	    </button>
+	    <a class="navbar-brand" href="/"></a>
+	  </div>
+	  <div class="text-center welcome-style" style="margin-top: 10px;">Welcome &nbsp;{{vm.userDetails.firstName}} &nbsp; {{vm.userDetails.lastName}}!!</div>
+	  <!-- Collect the nav links, forms, and other content for toggling -->
+	  <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
+	    <ul class="nav navbar-nav navbar-right">
+	      <li>
+	        <a href="#" ng-click="vm.logout()" style="color: red;">
+	       		<span class="glyphicon glyphicon-log-out"></span> Logout
+	       	</a>
+	      </li>
+	    </ul>
+	  </div><!-- /.navbar-collapse -->
+	</nav>
+<div class="container">  
+	<div class="container" style="margin-top: 50px;margin-bottom:100px;">
+		<div style="margin-top:20px;" ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+		<div ng-controller="NewRequestCtrl as vm"> 
+			<div class="row" role="group">
+		       	<div class="col-sm-12 text-right">           
+				    <div class="btn-group" uib-dropdown on-toggle="vm.toggled(open)">
+				      <a href id="profile-dropdown" uib-dropdown-toggle ng-disabled="vm.dataLoading" class="btn btn-default" style="width: 210px;">
+				        Click me to select profile&nbsp;<i class="fa fa-user" aria-hidden="true" style="font-size:24px;"></i><img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+				      </a>
+				      
+				      <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="profile-dropdown">
+				        <li ng-repeat="detail in depDetails track by $index">
+				          <a href ng-click="vm.openProfile(detail.depId)"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;{{detail.depFName}}</a>
+				        </li>
+				      </ul>
+				    </div>
+				    <div class="btn-group">
+				      <button type="button" class="btn btn-default" ng-click="vm.newQuestionModal(vm.profileDetail)" style="width: 210px;">Chat with Guru&nbsp;<i class="fa fa-wechat" style="font-size:24px;"></i></button>            
+		    		</div>
+		    		<div class="btn-group">
+				      <button type="button" class="btn btn-default" ng-click="vm.payment(vm.profileDetail)" style="width: 210px;">Payment&nbsp;<i class="fa fa-paypal" aria-hidden="true" style="font-size:24px;"></i></button>            
+		    		</div>
+		    	</div>
+	    	</div>
+	   		<div ng-hide="vm.hideProfile" style="margin-top: 50px;">
+			<script type="text/ng-template" id="newQuestionModalContent.html">
+				<form name="qForm" ng-submit="vm.addQuestion(vm.profile.depId)">
+        			<div class="modal-header">
+            			<span class="glyphicon glyphicon-comment"></span>&nbsp;Chat with Guru!(offline)
+						<small class="pull-right text-muted">
+                    		<a href ng-click="$close()"><span class="glyphicon glyphicon-remove-circle"></span>&nbspClose</a>
+						</small>
+        			</div>
+        			<div class="modal-body" style="height:400px;overflow: auto;">
+  						<div class="form-group">
+							<div class="row" style="padding-bottom: 10px;padding-top: 10px;" ng-repeat="chat in vm.chatHistory track by $index">
+  								<div class="col-xs-6 col-md-1" style="width:70px;">
+									<span class="chat-img pull-left">
+                           				<img src="http://placehold.it/50/{{chat.color}}/fff&amp;text={{chat.shortName}}"  class="img-circle">
+                        			</span>
+								</div>
+  								<div class="col-xs-12 col-md-10" style="border-bottom: 1px gray dotted;" ng-class="$index==0 ? 'messagebckgrnd' : ''">
+                           			<div class="chat-body clearfix">
+                               			<div class="header">
+                	               			<strong class="primary-font">{{chat.postedBy}}</strong> 
+											<small class="pull-right text-muted">
+                    	           				<span class="glyphicon glyphicon-time"></span>{{chat.datePosted }}
+											</small>
+                               			</div>
+                               			<p style="word-wrap: break-word;">
+											{{chat.question}}
+                               			</p>
+                           			</div>
+								</div>
+							</div>
+							<div ng-show="vm.chatHistory.length==0 && !vm.questionReplied" class="row" style="padding-bottom: 10px;padding-top: 10px;">
+								<div class="alert alert-info" role="alert" style="margin-left:10px;margin-right:10px;">
+			  						<span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span>
+			  						Please go to <mark>"Life Solutions"</mark> tab to view all your previous posts , questions and answers!
+								</div>
+							</div>
+							<div ng-show="vm.questionReplied" class="row" style="padding-bottom: 10px;padding-top: 10px;">
+								<div class="alert alert-info" role="alert" style="margin-left:10px;margin-right:10px;">
+			  						<span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span>
+			  						Conversation ended by Admin. Please start new question for conversation with Guru!
+								</div>
+							</div>
+						</div>
+        			</div>
+        			<div class="modal-footer">
+							<p class="input-group">
+								<textarea id="message" name="message" ng-model="vm.question.quesDes" class="form-control" rows="1" placeholder="Type your message here..." required></textarea>
+                        		<span class="input-group-btn">
+                            		<button class="btn btn-warning btn-sm" ng-disabled="myForm.$invalid || vm.questionReplied" type="submit" id="btn-chat">Send</button>
+                        		</span>
+							</p>
+							<span class="error" ng-show="qForm.message.$error.required">Please enter your question to begin chat!</span>
+        			</div>
+				</form>
+  			  </script>
+	  	      <script type="text/ng-template" id="editProfileModalContent.html">
+				<form name="myForm">
+					<div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message" style="margin-top:10px;margin-left:10px;margin-right:10px;"></div>
+        			<div class="modal-header">
+            			<h3 class="modal-title"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Edit Profile</h3>
+        			</div>
+        			<div class="modal-body">
+  						<div class="form-group">
+							<div class="row rowalt">
+  								<div class="col-xs-6 col-md-4" style="width:100px;padding-bottom: 10px;padding-top: 10px;"><label>First Name</label></label></div>
+  								<div class="col-xs-6 col-md-4" style="padding-bottom: 10px;;padding-top: 10px;">
+									<input type="text" name="depFName" class="form-control" ng-model="vm.profile.depFName" required>
+      								<span class="error" ng-show="myForm.depFName.$error.required">First Name Required!</span>
+								</div>
+  								<div class="col-xs-6 col-md-4" style="width:100px;padding-bottom: 10px;padding-top: 10px;"><label>Last Name</label></div>
+  								<div class="col-xs-6 col-md-4" style="padding-bottom: 10px;padding-top: 10px;">
+									<input type="text" name="depLName" class="form-control" ng-model="vm.profile.depLName" required>
+									<span class="error" ng-show="myForm.depLName.$error.required">Last Name Required!</span>
+								</div>
+							</div>
+							<div class="row rowalt">
+  								<div class="col-xs-6 col-md-4" style="width:100px;padding-bottom: 10px;padding-top: 10px;"><label>Gender</label></div>
+  								<div class="col-xs-6 col-md-4 radio" style="padding-bottom: 10px;padding-top: 10px;">
+										<label><input type="radio"  name="gender" ng-model="vm.profile.depSex" value="Male" required>Male</label>
+										<label><input type="radio"  name="gender" ng-model="vm.profile.depSex" value="Female" required>Female</label><br>
+										<span class="error" ng-show="myForm.gender.$error.required">Gender Name Required!</span>
+								</div>
+  								<div class="col-xs-6 col-md-4" style="width:100px;padding-bottom: 10px;padding-top: 10px;"><label>Relationship</label></div>
+  								<div class="col-xs-6 col-md-4" style="padding-bottom: 10px;padding-top: 10px;">
+									<select class="form-control" name="relationShipCode" ng-model="vm.profile.relationShipCode" required>
+										<option value="">---Please Select---</option>
+  										<option value="Subscriber">Subscriber</option>
+  										<option value="Spouse">Spouse</option>
+  										<option value="Son">Son</option>
+  										<option value="Daughter">Daughter</option>
+  										<option value="Father">Father</option>
+  										<option value="Mother">Mother</option>
+  										<option value="Brother">Brother</option>
+  										<option value="Sister">Sister</option>
+  										<option value="Friend">Friend</option>
+									</select>
+									<span ng-show="myForm.relationShipCode.$error.required" class="error">Relationship Required!</span>
+								</div>
+							</div>
+							<div class="row rowalt">
+  								<div class="col-xs-6 col-md-4" style="width:100px;padding-bottom: 10px;padding-top: 10px;"><label>Date</label></div>
+  								<div class="col-xs-6 col-md-4" style="padding-bottom: 10px;padding-top: 10px;">
+									<p class="input-group">
+          								<input type="text" name="depDOB" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="vm.profile.depDOB" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="['M!/d!/yyyy']" />
+          								<span class="input-group-btn">
+            								<button type="button" class="btn btn-default btn-sm" ng-click="dobCalendar()"><i class="glyphicon glyphicon-calendar"></i></button>
+          								</span>
+									</p>
+									<span ng-show="myForm.depDOB.$error.required" class="error">Date of Birth Required!</span><br>
+									<span ng-show="vm.dobformaterror" style="color:red;">Invalid Date. Correct format MM/DD/YYYY.</span>
+									<span ng-show="vm.dobdateerror" style="color:red;">Please enter valid DOB.</span>
+
+								</div>
+  								<div class="col-xs-6 col-md-4" style="width:100px;padding-bottom: 10px;padding-top: 10px;"><label>Time</div>
+  								<div class="col-xs-6 col-md-4" style="padding-bottom: 10px;padding-top: 10px;">
+									<uib-timepicker name="dobTime" ng-model="vm.dobTime" ng-change="changed()" hour-step="1" minute-step="15" show-meridian="ismeridian" ng-required="true"></uib-timepicker>
+									<span ng-show="myForm.dobTime.$error.required" class="error">Time of Birth Required!</span><br>
+									<span ng-show="vm.tobformaterror" style="color:red;">Invalid Time. Please enter valid time(24 Hrs and 60 Minutes)!</span>
+								</div>
+							</div>
+							<div class="row rowalt">
+  								<div class="col-xs-6 col-md-4" style="width:100px;padding-bottom: 10px;padding-top: 10px;"><label>Place</label></div>
+  								<div class="col-xs-6 col-md-7" style="padding-bottom: 10px;padding-top: 10px;">
+									<textarea name="depPlaceOfBirth" class="form-control" rows="3" ng-model="vm.profile.depPlaceOfBirth" required></textarea>
+									<span class="error" ng-show="myForm.depPlaceOfBirth.$error.required">Place of Birth Required!</span>
+									<div class="alert alert-info" role="alert" style="margin-top:10px;">
+			  							<span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span>
+			  							Please click on "Verify Address" button to generate Longitude and Latitude.
+									</div>
+								</div>
+								<div class="col-xs-6 col-md-3" style="width:100px;padding-bottom: 10px;padding-top: 10px;">
+									<button class="btn btn-primary btn-xs" type="button" ng-click="vm.verifyAddress()" ng-disabled="vm.verifyAddBtn"><span class="glyphicon glyphicon-map-marker"></span>&nbsp;Verify Address
+									&nbsp;<img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+									</button>
+								</div>
+							</div>
+							<div class="row rowalt">
+  								<div class="col-xs-6 col-md-4" style="width:100px;padding-bottom: 10px;padding-top: 10px;"><label>Longitude:</label></div>
+  								<div class="col-xs-6 col-md-4" style="padding-bottom: 10px;padding-top: 10px;"><input type="text" class="form-control" disabled="disabled" ng-model="vm.profile.depPlaceLongitudeNE"></div>
+								<div class="col-xs-6 col-md-4" style="width:100px;padding-bottom: 10px;">&nbsp;</div>
+  								<div class="col-xs-6 col-md-4" style="padding-bottom: 10px;padding-top: 10px;"><input type="text" class="form-control" disabled="disabled" ng-model="vm.profile.depPlaceLongitudeSW"></div>
+							</div>
+							<div class="row rowalt">
+  								<div class="col-xs-6 col-md-4" style="width:100px;padding-bottom: 10px;padding-top: 10px;"><label>Latitude:</label></div>
+  								<div class="col-xs-6 col-md-4" style="padding-bottom: 10px;padding-top: 10px;"><input type="text" class="form-control" disabled="disabled" ng-model="vm.profile.depPlaceLatitudeNE"></div>
+								<div class="col-xs-6 col-md-4" style="width:100px;padding-bottom: 10px;padding-top: 10px;">&nbsp;</div>
+  								<div class="col-xs-6 col-md-4" style="padding-bottom: 10px;padding-top: 10px;"><input type="text" class="form-control" disabled="disabled" ng-model="vm.profile.depPlaceLatitudeSW"></div>
+							</div>
+						</div>
+        			</div>
+        			<div class="modal-footer">
+						<button class="btn btn-primary" type="button" ng-disabled="myForm.$invalid" ng-click="vm.edit()"><span class="glyphicon glyphicon-edit"></span>&nbsp;Save</button>
+            			<button class="btn btn-warning" type="button" ng-click="$close()"><span class="glyphicon glyphicon-eye-close"></span>&nbsp;Close</button>
+        			</div>
+				</form>
+    		</script>
+	  	    <script type="text/ng-template" id="addProfileModalContent.html">
+				<form name="myForm">
+					<div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message" style="margin-top:10px;margin-left:10px;margin-right:10px;"></div>
+        			<div class="modal-header">
+            			<h3 class="modal-title"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Add Profile</h3>
+        			</div>
+        			<div class="modal-body">
+  						<div class="form-group">
+							<div class="row rowalt">
+  								<div class="col-xs-6 col-md-4" style="width:100px;padding-bottom: 10px;padding-top: 10px;"><label>First Name</label></label></div>
+  								<div class="col-xs-6 col-md-4" style="padding-bottom: 10px;padding-top: 10px;">
+									<input type="text" name="depFName" class="form-control" ng-model="vm.profile.depFName" required>
+      								<span class="error" ng-show="myForm.depFName.$error.required">First Name Required!</span>
+								</div>
+  								<div class="col-xs-6 col-md-4" style="width:100px;padding-bottom: 10px;padding-top: 10px;"><label>Last Name</label></div>
+  								<div class="col-xs-6 col-md-4" style="padding-bottom: 10px;padding-top: 10px;">
+									<input type="text" name="depLName" class="form-control" ng-model="vm.profile.depLName" required>
+									<span class="error" ng-show="myForm.depLName.$error.required">Last Name Required!</span>
+								</div>
+							</div>
+							<div class="row rowalt">
+  								<div class="col-xs-6 col-md-4" style="width:100px;padding-bottom: 10px;padding-top: 10px;"><label>Gender</label></div>
+  								<div class="col-xs-6 col-md-4 radio" style="padding-bottom: 10px;padding-top: 10px;">
+										<label><input type="radio"  name="gender" ng-model="vm.profile.depSex" value="Male" required>Male</label>
+										<label><input type="radio"  name="gender" ng-model="vm.profile.depSex" value="Female" required>Female</label><br>
+										<span class="error" ng-show="myForm.gender.$error.required">Gender Name Required!</span>
+								</div>
+  								<div class="col-xs-6 col-md-4" style="width:100px;padding-bottom: 10px;padding-top: 10px;"><label>Relationship</label></div>
+  								<div class="col-xs-6 col-md-4" style="padding-bottom: 10px;padding-top: 10px;">
+									<select class="form-control" name="relationShipCode" ng-model="vm.profile.relationShipCode" required>
+										<option value="">---Please Select---</option>
+  										<option value="Subscriber">Subscriber</option>
+  										<option value="Spouse">Spouse</option>
+  										<option value="Son">Son</option>
+  										<option value="Daughter">Daughter</option>
+  										<option value="Father">Father</option>
+  										<option value="Mother">Mother</option>
+  										<option value="Brother">Brother</option>
+  										<option value="Sister">Sister</option>
+  										<option value="Friend">Friend</option>
+									</select>
+									<span ng-show="myForm.relationShipCode.$error.required" class="error">Relationship Required!</span>
+								</div>
+							</div>
+							<div class="row rowalt">
+  								<div class="col-xs-6 col-md-4" style="width:100px;padding-bottom: 10px;padding-top: 10px;"><label>Date</label></div>
+  								<div class="col-xs-6 col-md-4" style="padding-bottom: 10px;padding-top: 10px;">
+									<p class="input-group">
+          								<input type="text" name="depDOB" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="vm.profile.depDOB" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="['M!/d!/yyyy']" />
+          								<span class="input-group-btn">
+            								<button type="button" class="btn btn-default btn-sm" ng-click="dobCalendar()"><i class="glyphicon glyphicon-calendar"></i></button>
+          								</span>
+									</p>
+									<span ng-show="myForm.depDOB.$error.required" class="error">Date of Birth Required!</span><br>
+									<span ng-show="vm.dobformaterror" style="color:red;">Invalid Date. Correct format MM/DD/YYYY.</span>
+									<span ng-show="vm.dobdateerror" style="color:red;">Please enter valid DOB.</span>
+
+								</div>
+  								<div class="col-xs-6 col-md-4" style="width:100px;padding-bottom: 10px;padding-top: 10px;"><label>Time</div>
+  								<div class="col-xs-6 col-md-4" style="padding-bottom: 10px;padding-top: 10px;">
+									<uib-timepicker name="dobTime" ng-model="vm.dobTime" ng-change="changed()" hour-step="1" minute-step="15" show-meridian="ismeridian" ng-required="true"></uib-timepicker>
+									<span ng-show="myForm.dobTime.$error.required" class="error">Time of Birth Required!</span><br>
+									<span ng-show="vm.tobformaterror" style="color:red;">Invalid Time. Please enter valid time(24 Hrs and 60 Minutes)!</span>
+								</div>
+							</div>
+							<div class="row rowalt">
+  								<div class="col-xs-6 col-md-4" style="width:100px;padding-bottom: 10px;padding-top: 10px;"><label>Place</label></div>
+  								<div class="col-xs-6 col-md-7" style="padding-bottom: 10px;padding-top: 10px;">
+									<textarea name="depPlaceOfBirth" class="form-control" rows="3" ng-model="vm.profile.depPlaceOfBirth" required></textarea>
+									<span class="error" ng-show="myForm.depPlaceOfBirth.$error.required">Place of Birth Required!</span>
+									<div class="alert alert-info" role="alert" style="margin-top:10px;">
+			  							<span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span>
+			  							Please click on "Verify Address" button to generate Longitude and Latitude.
+									</div>
+								</div>
+								<div class="col-xs-6 col-md-3" style="width:100px;padding-bottom: 10px;padding-top: 10px;">
+									<button class="btn btn-primary btn-xs" type="button" ng-click="vm.verifyAddress()" ng-disabled="vm.verifyAddBtn"><span class="glyphicon glyphicon-map-marker"></span>&nbsp;Verify Address
+									&nbsp;<img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+									</button>
+								</div>
+							</div>
+							<div class="row rowalt">
+  								<div class="col-xs-6 col-md-4" style="width:100px;padding-bottom: 10px;padding-top: 10px;"><label>Longitude:</label></div>
+  								<div class="col-xs-6 col-md-4" style="padding-bottom: 10px;padding-top: 10px;"><input type="text" class="form-control" disabled="disabled" ng-model="vm.profile.depPlaceLongitudeNE"></div>
+								<div class="col-xs-6 col-md-4" style="width:100px;padding-bottom: 10px;">&nbsp;</div>
+  								<div class="col-xs-6 col-md-4" style="padding-bottom: 10px;padding-top: 10px;"><input type="text" class="form-control" disabled="disabled" ng-model="vm.profile.depPlaceLongitudeSW"></div>
+							</div>
+							<div class="row rowalt">
+  								<div class="col-xs-6 col-md-4" style="width:100px;padding-bottom: 10px;padding-top: 10px;"><label>Latitude:</label></div>
+  								<div class="col-xs-6 col-md-4" style="padding-bottom: 10px;padding-top: 10px;"><input type="text" class="form-control" disabled="disabled" ng-model="vm.profile.depPlaceLatitudeNE"></div>
+								<div class="col-xs-6 col-md-4" style="width:100px;padding-bottom: 10px;padding-top: 10px;">&nbsp;</div>
+  								<div class="col-xs-6 col-md-4" style="padding-bottom: 10px;padding-top: 10px;"><input type="text" class="form-control" disabled="disabled" ng-model="vm.profile.depPlaceLatitudeSW"></div>
+							</div>
+						</div>
+        			</div>
+        			<div class="modal-footer">
+            			<button class="btn btn-primary" type="button" ng-disabled="myForm.$invalid" ng-click="vm.save()">Save</button>
+            			<button class="btn btn-warning" type="button" ng-click="$close()">Cancel</button>
+        			</div>
+				</form>
+    		</script>    		
+	
+				  <uib-accordion>
+				    <uib-accordion-group is-open="vm.status.isProfileHeaderOpen">
+				    	<uib-accordion-heading>
+				        	<span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Profile({{vm.profileDetail.depFName}}) <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': vm.status.isProfileHeaderOpen, 'glyphicon-chevron-right': !vm.status.isProfileHeaderOpen}"></i>
+				      	</uib-accordion-heading>
+				      	<div class="row">
+	    				<div class="col-md-6">
+							<table class="table table-striped table-bordered">
+								<tbody>
+									<tr>
+										<td><label>Name</label></td>
+										<td><p style="word-wrap: break-word;">{{vm.profileDetail.depFName}} &nbsp;{{vm.profileDetail.depLName}}</p></td>
+									</tr>
+									<tr>
+										<td><label>Gender</label></td>
+										<td>{{vm.profileDetail.depSex}}</td>
+									</tr>
+									<tr>
+										<td style="width:40%;"><label>Relationship to Subscriber</label></td>
+										<td>{{vm.profileDetail.relationShipCode}}</td>
+									</tr>								
+									<tr>
+										<td><label>Date(YYYY-MM-DD)</label></td>
+										<td>{{vm.profileDetail.depDOB | date:'fullDate' }}</td>
+									</tr>
+									<tr>
+										<td><label>Time(24 Hrs)</label></td>
+										<td>{{vm.profileDetail.depTime}}</td>
+									</tr>
+									<tr>
+										<td><label>Place</label></td>
+										<td><p style="word-wrap: break-word;">{{vm.profileDetail.depPlaceOfBirth}}</p></td>
+									</tr>
+									<tr>
+										<td><label>Longitude</label></td>
+										<td>{{vm.profileDetail.depPlaceLongitudeNE}}<br>{{vm.profileDetail.depPlaceLongitudeSW}}</td>
+									</tr>
+									<tr>
+										<td><label>Latitude</label></td>
+										<td>{{vm.profileDetail.depPlaceLatitudeNE}}<br>{{vm.profileDetail.depPlaceLatitudeSW}}</td>
+									</tr>
+						            <tr>
+							              <th colspan="2">
+								              <div style="margin-left: 25%;">
+								              		<img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+									              	<button type="button" class="btn btn-default btn-sm" ng-click="vm.editProfileModal(vm.profileDetail)" ng-disabled="vm.dataLoading" style="margin-left: 10px;margin-right: 10px;">
+			  											<span class="glyphicon glyphicon-edit"></span>Edit
+													</button>
+													<button type="button" class="btn btn-default btn-sm" ng-click="vm.deleteProfile(vm.profileDetail.depId)" ng-disabled="vm.dataLoading">
+			  											<span class="glyphicon glyphicon-trash"></span>Delete
+													</button>
+											  </div>
+							              </th>
+						            </tr>
+								</tbody>
+							</table>
+						</div>
+	
+	    				<div class="col-md-6">
+	    					<div ng-if="vm.profileDetail.verified==false">
+	    						<div class="alert alert-danger" role="alert">
+	    							<span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span>
+									Horoscope analysis is in progress.Birth chart with detailed analysis will be update soon.<br><br>
+									SAMPLE birth chart below.
+								</div>  					
+	    						<img src="/static/img/horoscope-wheel.gif" class="img-responsive" style="padding-top: 5px;">
+	    					</div>
+							<div ng-if="vm.profileDetail.verified==true">
+								<div class="alert alert-success" role="alert">
+				  					<span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span>
+				  					Analysis Completed.Please click on <mark>"Life Solutions"</mark> tab below and read the report. For more questions, go to <mark>"Chat with Guru"</mark> above and post all your questions.
+								</div>									
+								<img src="data:image/jpeg;base64,{{vm.profileDetail.chartImgData}}" class="img-responsive" style="padding-top: 5px;" /> 
+							</div>
+	    					
+	    				</div>
+				  	</div>
+				    </uib-accordion-group>
+				    <uib-accordion-group is-open="vm.status.isLifeSolutionHeaderOpen" ng-click="vm.getProfileQuestions(vm.status.isLifeSolutionHeaderOpen,vm.profileDetail.depId)" style="background:#e0e0e0;">
+				      <uib-accordion-heading>
+				        <span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;Life Solutions! <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': vm.status.isLifeSolutionHeaderOpen, 'glyphicon-chevron-right': !vm.status.isLifeSolutionHeaderOpen}"></i>
+				      </uib-accordion-heading>
+			          <div class="panel panel-primary">
+	      				<div class="panel-heading"><span class="glyphicon glyphicon-leaf"></span>&nbsp;High Level life scope</div>
+	      				<div ng-if="vm.profileDetail.analysis">
+	      					<div class="panel-body">{{vm.profileDetail.analysis}}</div>
+	      				</div>
+	      				<div ng-if="!vm.profileDetail.analysis">
+	      					<div class="panel-body">Analysis in progress.........</div>
+	      				</div>      				
+	    			  </div>
+	    			  <div ng-repeat="(key, value) in questions">
+	       			  	<div class="row">
+		     			    <div ng-repeat="question in value"> 
+			    			  	<div class="col-md-6">
+									    <div class="panel panel-default box effect1">
+                							<div class="panel-body" style="height: 225px;overflow-y: auto;" ng-show="question.noQuestions">
+                  								<header style="margin-bottom:5px;" class="text-left">
+                    								<img src="http://placehold.it/50/{{question.color}}/fff&amp;text={{question.shortName}}"  class="img-circle"><span style="margin-left:10px;margin-right:20px;">{{question.postedBy}}</span><time class="comment-date"><i class="fa fa-clock-o"></i> {{question.datePosted}}</time>
+                    								<p class="text-right" style="width:10px;float:right;"><a href ng-click="vm.deleteQuestion(question.questionId)"><span class="glyphicon glyphicon-trash"></span></a></p>
+                  								</header>
+                  								<div style="border-top: 1px dotted #bbb;padding: 10px;">
+	                    							<p style="word-wrap: break-word;"> 
+	                    							  {{question.question}}
+	                    							</p>
+                  								</div>
+                  								<div style="border-top: 1px dotted #bbb;padding: 10px;margin-top: 25px;">
+                  									<p class="text-right" ><a href ng-click="vm.viewcomments(question)" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-comment"></span>&nbsp;View Conversation</a></p>
+                  								</div>
+                							</div>
+                							<div class="panel-body" ng-show="!question.noQuestions" style="margin-top: 50%;margin-top: 10px;">
+                									<p style="color: red;background-color: yellow;text-align: center;"> 
+	                    							  {{question.question}}
+	                    							</p>
+                							</div>
+                							
+									</div>
+								</div>
+						  	</div>
+						</div>
+					  </div>
+				    </uib-accordion-group>
+				  </uib-accordion>
+	   		</div>
+		</div>
+	</div>
+</div>
+		
+
+<div class="navbar navbar-fixed-bottom">
+    <div class="navbar-inner">
+        <div class="width-constraint clearfix">
+			<p style="margin-left:20px;" class="copyright text-muted small">Copyright &copy; Haasini Groups of Technologies 2016.<br>All Rights Reserved</p>
+        </div>
+    </div>
+</div>
+
+
+
+

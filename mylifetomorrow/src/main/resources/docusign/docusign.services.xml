@@ -1,0 +1,30 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:cxf="http://cxf.apache.org/core" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context.xsd
+        http://cxf.apache.org/core  http://cxf.apache.org/schemas/core.xsd
+        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd"
+		default-autowire="byName">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+	<!--
+		Enable message logging using the CXF logging feature. Logging can be
+		disabled by setting the "org.apache.cxf" log level to WARN or higher.
+	-->
+	<cxf:bus>
+		<cxf:features>
+			<cxf:logging />
+		</cxf:features>
+	</cxf:bus>
+
+ 	
+  	<jaxws:endpoint id="enrollmentConnectService" implementor="#enrollmentConnectServiceImpl"
+		address="/EnrollmentConnectService" wsdlLocation="wsdl/docusign-connect-enrollment.wsdl"
+		serviceName="msg:EnrollmentConnectService" endpointName="msg:EnrollmentConnectGatewayPort"
+		xmlns:msg="http://enrollment.hcsc.com/contract/docusign">
+	</jaxws:endpoint>
+
+</beans>

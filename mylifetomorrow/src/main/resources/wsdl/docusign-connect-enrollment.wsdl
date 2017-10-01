@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" 
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
+	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" 
+	xmlns:tns="http://enrollment.hcsc.com/contract/docusign" 
+	xmlns:s1="http://www.docusign.net/API/3.0" 
+	xmlns:s="http://www.w3.org/2001/XMLSchema" 
+	xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" 
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" 
+	targetNamespace="http://enrollment.hcsc.com/contract/docusign" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://enrollment.hcsc.com/contract/docusign" xmlns:tns="http://enrollment.hcsc.com/contract/docusign">
+      <s:import namespace="http://www.docusign.net/API/3.0" location="docusign-API-3.0-dsapi.wsdl" />
+      <s:element name="DocuSignConnectUpdate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DocuSignEnvelopeInformation" type="s1:DocuSignEnvelopeInformation" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DocuSignConnectUpdateResponse">
+      	<s:complexType>
+      		<s:sequence>
+      			<s:element maxOccurs="1" minOccurs="0" name="DocuSignConnectUpdateResult" type="s:string"/>
+      		</s:sequence>
+      	</s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.docusign.net/API/3.0">
+      <s:complexType name="DocuSignEnvelopeInformation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EnvelopeStatus" type="s1:EnvelopeStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentPDFs" type="s1:ArrayOfDocumentPDF" />
+          <s:element minOccurs="0" maxOccurs="1" name="TimeZone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TimeZoneOffset" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EnvelopeStatus">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="RecipientStatuses" nillable="true" type="s1:ArrayOfRecipientStatus" />
+          <s:element minOccurs="1" maxOccurs="1" name="TimeGenerated" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="EnvelopeID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Subject" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Status" type="s1:EnvelopeStatusCode" />
+          <s:element minOccurs="1" maxOccurs="1" name="Created" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Deleted" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sent" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Delivered" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Signed" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Completed" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Declined" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="TimedOut" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="ACStatus" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ACStatusDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="ACHolder" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ACHolderEmail" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ACHolderLocation" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SigningLocation" type="s1:SigningLocationCode" />
+          <s:element minOccurs="0" maxOccurs="1" name="SenderIPAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EnvelopePDFHash" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomFields" type="s1:ArrayOfCustomField" />
+          <s:element minOccurs="0" maxOccurs="1" name="VaultingDetails" type="s1:VaultingDetails" />
+          <s:element minOccurs="1" maxOccurs="1" name="AutoNavigation" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="EnvelopeIdStamping" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="AuthoritativeCopy" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="EnvelopeAttachment" type="s1:ArrayOfAttachment" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentStatuses" type="s1:ArrayOfDocumentStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="FormData" type="s1:FormData" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfRecipientStatus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RecipientStatus" type="s1:RecipientStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RecipientStatus">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Type" type="s1:RecipientTypeCode" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="RoutingOrder" type="s:unsignedShort" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sent" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Delivered" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Signed" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Declined" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="DeclineReason" nillable="true" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AutoRespondedReason" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Status" type="s1:RecipientStatusCode" />
+          <s:element minOccurs="0" maxOccurs="1" name="RecipientIPAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ClientUserId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AutoNavigation" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="IDCheckInformation" type="s1:IDCheckInformation" />
+          <s:element minOccurs="0" maxOccurs="1" name="RecipientAuthenticationStatus" type="s1:AuthenticationStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomFields" type="s1:ArrayOfString" />
+          <s:element minOccurs="0" maxOccurs="1" name="TabStatuses" type="s1:ArrayOfTabStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="RecipientAttachment" type="s1:ArrayOfAttachment" />
+          <s:element minOccurs="0" maxOccurs="1" name="AccountStatus" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EsignAgreementInformation" type="s1:RecipientStatusEsignAgreementInformation" />
+          <s:element minOccurs="0" maxOccurs="1" name="FormData" type="s1:FormData" />
+          <s:element minOccurs="0" maxOccurs="1" name="RecipientId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeliveryMethod" type="s1:DeliveryMethod" />
+          <s:element minOccurs="0" maxOccurs="1" name="FaxNumber" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="RecipientTypeCode">
+        <s:restriction base="s:string">
+          <s:enumeration value="Signer" />
+          <s:enumeration value="Agent" />
+          <s:enumeration value="Editor" />
+          <s:enumeration value="Intermediary" />
+          <s:enumeration value="CarbonCopy" />
+          <s:enumeration value="CertifiedDelivery" />
+          <s:enumeration value="InPersonSigner" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="RecipientStatusCode">
+        <s:restriction base="s:string">
+          <s:enumeration value="Created" />
+          <s:enumeration value="Sent" />
+          <s:enumeration value="Delivered" />
+          <s:enumeration value="Signed" />
+          <s:enumeration value="Declined" />
+          <s:enumeration value="Completed" />
+          <s:enumeration value="FaxPending" />
+          <s:enumeration value="AutoResponded" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="IDCheckInformation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AddressInformation" type="s1:AddressInformation" />
+          <s:element minOccurs="0" maxOccurs="1" name="DOBInformation" type="s1:DOBInformation" />
+          <s:element minOccurs="0" maxOccurs="1" name="SSN4Information" type="s1:SSN4Information" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AddressInformation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Street1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Street2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Zip" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ZipPlus4" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DOBInformation">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="DOB" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SSN4Information">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SSN4" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AuthenticationStatus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AccessCodeResult" type="s1:EventResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="IDQuestionsResult" type="s1:EventResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="IDLookupResult" type="s1:EventResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="AgeVerifyResult" type="s1:EventResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="STANPinResult" type="s1:EventResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="OFACResult" type="s1:EventResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="PhoneAuthResult" type="s1:EventResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="LiveIDResult" type="s1:EventResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="FacebookResult" type="s1:EventResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="GoogleResult" type="s1:EventResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="LinkedinResult" type="s1:EventResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="SalesforceResult" type="s1:EventResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="TwitterResult" type="s1:EventResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="OpenIDResult" type="s1:EventResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="AnySocialIDResult" type="s1:EventResult" />
+          <s:element minOccurs="0" maxOccurs="1" name="YahooResult" type="s1:EventResult" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EventResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Status" type="s1:EventStatusCode" />
+          <s:element minOccurs="1" maxOccurs="1" name="EventTimestamp" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="FailureDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="VendorFailureStatusCode" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="EventStatusCode">
+        <s:restriction base="s:string">
+          <s:enumeration value="Passed" />
+          <s:enumeration value="Failed" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CustomField" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfTabStatus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TabStatus" type="s1:TabStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TabStatus">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="TabType" type="s1:TabTypeCode" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="XPosition" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="YPosition" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="Signed" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="TabLabel" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TabName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TabValue" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentID" type="s:positiveInteger" />
+          <s:element minOccurs="0" maxOccurs="1" name="PageNumber" type="s:nonNegativeInteger" />
+          <s:element minOccurs="0" maxOccurs="1" name="OriginalValue" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ValidationPattern" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RoleName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ListValues" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ListSelectedValue" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ScaleValue" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomTabType" type="s1:CustomTabType" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="TabTypeCode">
+        <s:restriction base="s:string">
+          <s:enumeration value="InitialHere" />
+          <s:enumeration value="SignHere" />
+          <s:enumeration value="FullName" />
+          <s:enumeration value="FirstName" />
+          <s:enumeration value="LastName" />
+          <s:enumeration value="EmailAddress" />
+          <s:enumeration value="Company" />
+          <s:enumeration value="Title" />
+          <s:enumeration value="DateSigned" />
+          <s:enumeration value="InitialHereOptional" />
+          <s:enumeration value="EnvelopeID" />
+          <s:enumeration value="Custom" />
+          <s:enumeration value="SignerAttachment" />
+          <s:enumeration value="SignHereOptional" />
+          <s:enumeration value="Approve" />
+          <s:enumeration value="Decline" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="CustomTabType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Text" />
+          <s:enumeration value="Checkbox" />
+          <s:enumeration value="Radio" />
+          <s:enumeration value="List" />
+          <s:enumeration value="Date" />
+          <s:enumeration value="Number" />
+          <s:enumeration value="SSN" />
+          <s:enumeration value="ZIP5" />
+          <s:enumeration value="ZIP5DASH4" />
+          <s:enumeration value="Email" />
+          <s:enumeration value="Note" />
+          <s:enumeration value="Formula" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfAttachment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Attachment" type="s1:Attachment" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Attachment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Data" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" name="Label" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RecipientStatusEsignAgreementInformation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="AccountEsignId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserEsignId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AgreementDate" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FormData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="xfdf" type="s1:FormDataXfdf" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FormDataXfdf">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="fields" type="s1:ArrayOfFormDataXfdfField" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfFormDataXfdfField">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="field" type="s1:FormDataXfdfField" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FormDataXfdfField">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="value" type="s:string" />
+        </s:sequence>
+        <s:attribute name="name" type="s:string" />
+      </s:complexType>
+      <s:simpleType name="DeliveryMethod">
+        <s:restriction base="s:string">
+          <s:enumeration value="Email" />
+          <s:enumeration value="Fax" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="EnvelopeStatusCode">
+        <s:restriction base="s:string">
+          <s:enumeration value="Any" />
+          <s:enumeration value="Voided" />
+          <s:enumeration value="Created" />
+          <s:enumeration value="Deleted" />
+          <s:enumeration value="Sent" />
+          <s:enumeration value="Delivered" />
+          <s:enumeration value="Signed" />
+          <s:enumeration value="Completed" />
+          <s:enumeration value="Declined" />
+          <s:enumeration value="TimedOut" />
+          <s:enumeration value="Template" />
+          <s:enumeration value="Processing" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="SigningLocationCode">
+        <s:restriction base="s:string">
+          <s:enumeration value="InPerson" />
+          <s:enumeration value="Online" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfCustomField">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CustomField" type="s1:CustomField" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CustomField">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Show" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Required" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CustomFieldType" type="s1:CustomFieldType" />
+          <s:element minOccurs="0" maxOccurs="1" name="ListItems" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="CustomFieldType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Text" />
+          <s:enumeration value="List" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="VaultingDetails">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EODTransactionName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EODTransactionID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="EODDocumentProfileID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDocumentStatus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DocumentStatus" type="s1:DocumentStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DocumentStatus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ID" type="s:positiveInteger" />
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TemplateName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Sequence" type="s:positiveInteger" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfDocumentPDF">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DocumentPDF" type="s1:DocumentPDF" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="DocumentPDF">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PDFBytes" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentID" type="s:positiveInteger" />
+          <s:element minOccurs="0" maxOccurs="1" name="DocumentType" type="s1:DocumentType" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="DocumentType">
+        <s:restriction base="s:string">
+          <s:enumeration value="SUMMARY" />
+          <s:enumeration value="CONTENT" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="DocuSignConnectUpdateSoapIn">
+    <wsdl:part name="parameters" element="tns:DocuSignConnectUpdate" />
+  </wsdl:message>
+  <wsdl:message name="DocuSignConnectUpdateResponse">
+  	<wsdl:part name="parameters" element="tns:DocuSignConnectUpdateResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="EnrollmentConnectGatewaySoap">
+    <wsdl:operation name="DocuSignConnectUpdate">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">&lt;strong&gt;DocuSign Connect Update&lt;/strong&gt;&lt;br /&gt;Called by DocuSign after a customer has completed signing.</wsdl:documentation>
+      <wsdl:input message="tns:DocuSignConnectUpdateSoapIn" />
+      <wsdl:output message="tns:DocuSignConnectUpdateResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  
+  <wsdl:binding name="EnrollmentConnectGatewaySoapBinding" type="tns:EnrollmentConnectGatewaySoap">
+    <soap:binding style="document" 	transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DocuSignConnectUpdate">
+      <soap:operation soapAction="http://enrollment.hcsc.com/contract/docusign/DocuSignConnectUpdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>      
+    </wsdl:operation>
+  </wsdl:binding>
+
+  <wsdl:service name="EnrollmentConnectService">
+    <wsdl:port name="EnrollmentConnectGatewayPort" binding="tns:EnrollmentConnectGatewaySoapBinding">
+      <soap:address location="https://localhost:9082/EnrollmentConnectGateway" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

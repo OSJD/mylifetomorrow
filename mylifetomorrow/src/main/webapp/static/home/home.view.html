@@ -1,0 +1,144 @@
+        <nav class="navbar navbar-default" role="navigation">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header topnav">
+
+        <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/"></a>
+      </div>
+      
+    
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#">About Us</a></li>
+          <li><a href="http://www.haasinitech.com" target="_blank">Web Technology</a></li>
+          <li><a href="#">IT Consulting</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </nav> 
+    <!-- Header -->
+    <a id="about"></a>
+    <div class="intro-header">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="intro-message">
+                        <h1>How will be my life tomorrow?</h1>
+                        <h4>We will travel into future and find what suit best to lead happy life.</h4>
+                        <hr class="intro-divider">
+						<blockquote class="quote1">
+							<span>
+								"If you concentrate on finding whatever is good in every situation, <br>you will discover that your life will suddenly be filled with gratitude,<br> a feeling that nurtures the soul." 
+							</span>
+							<span style="color: red;margin-left: 105px;">
+							-  Rabbi Harold Kushner
+							</span>
+						</blockquote>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.intro-header -->
+
+    <!-- Page Content -->
+
+	<a  id="services"></a>
+	
+	
+    <div class="content-section-a">
+
+        <div class="container">
+	         <div class="row">
+                <div class="col-lg-12">
+				    <div ng-controller="login as nav" class="container">
+						<ul class="nav nav-pills" role="tablist">
+							<li ng-class="{active:nav.tab('register')}"><a href="#/register" class="btn btn-warning" ><span class="glyphicon glyphicon-user"></span>Register</a></li>
+							<li ng-class="{active:nav.tab('login')}"><a href="#/login" class="btn btn-success" ><span class="glyphicon glyphicon-log-in"></span>&nbsp;Login</a></li>
+						</ul>
+					</div>
+    			</div>
+	    	</div>
+
+			<div class="row">
+			    <div class="col-xs-12 col-sm-6" style="margin-top: 10px;border-top: 1px gray dotted;">
+					<p class="lead">At every stage of life, we will be having so many confusions on the following
+						<ul>
+						 <li>Which career path to choose? Engineering , Medicine or Commerce?</li>
+						 <li>Whom to marry for happy marriage life? </li>
+						 <li>When can i go abroad? </li>
+						 <li>Which decision to make and on when for success? </li>
+						</ul>
+						We will help you find solutions for all above common problems.
+					</p>
+					<div class="alert alert-info" role="alert">
+		  				<span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span>
+		  				We will travel back in to your past and find what happened so far in your life with dates. If our analysis matches with your past then , we will continue our investigation to determine the facts that going to happen in your near future.
+					</div>
+					<h3 class="section-heading">Please <span class="label label-info">Register</span> and post all your questions here.</h3>
+					
+					<div class="embed-responsive embed-responsive-16by9">
+					  <iframe class="embed-responsive-item" src="https://www.youtube-nocookie.com/embed/6CQxcRrDR3w" frameborder="0" allowfullscreen></iframe>
+					</div>					
+			    </div>
+			    <div class="col-xs-12 col-sm-6">
+			    	<div style="margin-top: 10px;margin-bottom:10px;border: 1px gray dotted;padding: 5px;">
+			        	<div style="height: 305px">
+						    <uib-carousel active="active" interval="4500" no-wrap="noWrapSlides">
+						      <uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
+						        <img ng-src="{{slide.image}}" style="margin:auto;">
+						        <div class="carousel-caption transbox">
+						          <p>{{slide.text}}</p>
+						        </div>
+						      </uib-slide>
+						    </uib-carousel>
+  						</div>
+   						<div style="margin-left:20px;margin-right:20px;margin-top: 10px;margin-bottom:10px;border: 1px gray solid;"">
+		            		<div ng-include="'fbpage.html'"></div>
+					    </div>
+					    <script type="text/ng-template" id="fbpage.html">
+    							<div ng-if="true" onrender="rendered()" class="fb-page" data-href="http://www.facebook.com/haasinigroups" data-width="680" data-hide-cover="false" data-show-facepile="true" data-show-posts="true"></div>
+   						</script>
+
+						</div>						
+			    </div>
+			</div>
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /.banner -->
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12" ng-controller="menu">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                            <a ng-click="gotoAbout()">About</a>
+                        </li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li>
+                           <a ng-click="gotoServices()">Services</a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted small">Copyright &copy; <a href="http://www.haasinitech.com" target="_blank">Haasini Groups of Technologies 2017</a>. All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>    
